@@ -7,6 +7,7 @@ import 'package:weatherapp/models/weathermodel.dart';
 import 'package:weatherapp/pages/homepage.dart';
 import 'package:weatherapp/someconst.dart';
 
+const APIKEY = '';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final pos = await getCurrentLocation();
@@ -14,7 +15,7 @@ void main() async {
   final _box = await Hive.openBox(openBox);
   if (_box.isEmpty) {
     log('');
-    var response = await getData('5b4c49c6d7e946939e2110059231909', pos);
+    var response = await getData(APIKEY, pos);
     await _box.putAll(response);
   } else if (time(_box.get('date').toString()) !=
       time(DateTime.now().toString())) {
