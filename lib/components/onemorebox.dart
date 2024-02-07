@@ -27,13 +27,13 @@ class OneMoreBox extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.only(top: 20, left: 30, right: 30),
             width: 400,
-            height: 330,
+            height: 350,
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(50)),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 30.0, top: 20),
+                const Padding(
+                  padding: EdgeInsets.only(left: 30.0, top: 20),
                   child: Row(
                     children: [
                       Text(
@@ -60,7 +60,7 @@ class OneMoreBox extends StatelessWidget {
                                 SizedBox(
                                   width: 80,
                                   child: Image.network(
-                                    listofweather[index].icon,
+                                    '${listofweather[index].icon}',
                                   ),
                                 ),
                                 Text(

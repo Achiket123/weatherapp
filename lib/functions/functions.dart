@@ -5,8 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 
 String time(String time) {
-  print(DateTime.wednesday);
-  print(time);
   var str = '';
   for (var i = 0; i < time.length; i++) {
     // 14-21
@@ -22,8 +20,10 @@ getData(String key, String location) async {
       'http://api.weatherapi.com/v1/forecast.json?key=$key&q=$location&days=7&aqi=no';
   Map<String, String> headers = {'Content-Type': 'application/json'};
   var resp = await http.get(Uri.parse(uri), headers: headers);
-  print(resp);
-  print('hello');
+  print(resp.statusCode);
+  print(resp.body);
+  // print('hello');
+  // print(JsonDecoder().convert(resp.body));
   return JsonDecoder().convert(resp.body);
 }
 
@@ -63,7 +63,6 @@ Future<String> getCurrentLocation() async {
       desiredAccuracy: LocationAccuracy.high,
     );
 
-    print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
 
     List<Placemark> placemarks = await placemarkFromCoordinates(
       position.latitude,
@@ -72,11 +71,9 @@ Future<String> getCurrentLocation() async {
 
     // Extract the city from the placemark
     String city = placemarks.first.locality.toString();
-
-    print('Current City: $city');
+    print(city);
     return city;
   } catch (e) {
-    print('Error getting location: $e');
     return 'Patna';
   }
 }

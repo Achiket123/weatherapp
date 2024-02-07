@@ -98,7 +98,7 @@ class NextPage extends StatelessWidget {
                               child: Text(
                                 '${todaysWeather.temp}°',
                                 style: const TextStyle(
-                                    fontSize: 80, color: Colors.white),
+                                    fontSize: 60, color: Colors.white),
                               ),
                             ),
                             Center(

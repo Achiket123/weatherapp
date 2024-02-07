@@ -31,7 +31,7 @@ class MainWeatherBox extends StatelessWidget {
                   child: Column(children: [
                     SizedBox(
                         height: 120,
-                        child: Image.network(weather.icon, fit: BoxFit.cover)),
+                        child: Image.network('${weather.icon}', fit: BoxFit.cover)),
                     Text(
                       '${weather.temp} °C',
                       style: const TextStyle(fontSize: 60, color: Colors.white),

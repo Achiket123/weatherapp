@@ -53,7 +53,7 @@ class MiniBoxes extends StatelessWidget {
                       height: 50,
                       width: 50,
                       child: Image.network(
-                        weather.icon.toString(),
+                        '${weather.icon}',
                         fit: BoxFit.fitWidth
                         // 'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
                         ,

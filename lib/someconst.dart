@@ -10,7 +10,7 @@ Weather todaysWeather = Weather(
     pressure: 'pressure',
     visibility: 'visibility',
     windSpeed: 'windSpeed',
-    icon: '');
+    icon: 'https://cdn.weatherapi.com/weather/64x64/day/113.png');
 
 Weather tomorrowsWeather = Weather(
     date: 'date',
@@ -22,7 +22,7 @@ Weather tomorrowsWeather = Weather(
     pressure: 'pressure',
     visibility: 'visibility',
     windSpeed: 'windSpeed',
-    icon: '');
+    icon: 'https://cdn.weatherapi.com/weather/64x64/day/113.png');
 
 Weather dayafterTomorrowsWeather = Weather(
     date: 'date',
@@ -34,18 +34,18 @@ Weather dayafterTomorrowsWeather = Weather(
     pressure: 'pressure',
     visibility: 'visibility',
     windSpeed: 'windSpeed',
-    icon: '');
+    icon: 'https://cdn.weatherapi.com/weather/64x64/day/113.png');
 
 MiniWeatherModel miniWeatherModel = MiniWeatherModel(
     time: '00:00',
-    icon: '//cdn.weatherapi.com/weather/64x64/night/113.png',
+    icon: 'https://cdn.weatherapi.com/weather/64x64/day/113.png',
     temp: '20');
 
 List<MiniWeatherModel> listofMiniWeatherModel = [
   miniWeatherModel,
 ];
 
-var openBox = '4';
+var openBox = '10';
 
 List<Weather> listofWeather = [
   todaysWeather,
