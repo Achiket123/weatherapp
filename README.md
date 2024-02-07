@@ -94,9 +94,9 @@ If you'd like to contribute to the project, please follow these steps:
 5. Push to the branch: `git push origin feature/new-feature`.
 6. Create a pull request.
 
-# Download it 
+# [Download it ]('https://drive.google.com/file/d/14D_JpIOIV-xSE_h5mmJwYF3aXBURPS0p/view?usp=sharing')
 <div align='center'>
 
-[<img src="android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png">]('https://drive.google.com/file/d/14D_JpIOIV-xSE_h5mmJwYF3aXBURPS0p/view?usp=sharing')
+<img src="android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png">
 
 </div>
