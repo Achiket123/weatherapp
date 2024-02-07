@@ -3,6 +3,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 String time(String time) {
   var str = '';
@@ -76,4 +77,15 @@ Future<String> getCurrentLocation() async {
   } catch (e) {
     return 'Patna';
   }
+}
+
+permission()async{
+   var status = await Permission.location.request();
+    if (status == PermissionStatus.granted) {
+      print("Location permission granted!");
+    } else if (status == PermissionStatus.denied) {
+      permission();
+    } else {
+      permission();
+    }
 }

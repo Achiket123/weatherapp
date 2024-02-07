@@ -11,7 +11,7 @@ import 'package:weatherapp/someconst.dart';
 const APIKEY = '';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final pos = await getCurrentLocation();
+  await permission();
   await Hive.initFlutter();
   final _box = await Hive.openBox(openBox);
   preload();
