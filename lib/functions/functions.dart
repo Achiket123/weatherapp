@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:weatherapp/main.dart';
 
 String time(String time) {
   var str = '';
@@ -18,11 +19,12 @@ String time(String time) {
 
 getData(String key, String location) async {
   String uri =
-      'http://api.weatherapi.com/v1/forecast.json?key=$key&q=$location&days=7&aqi=no';
+'http://api.weatherapi.com/v1/forecast.json?key=${APIKEY}q=$location&days=7&aqi=no&alerts=no';
   Map<String, String> headers = {'Content-Type': 'application/json'};
-  var resp = await http.get(Uri.parse(uri), headers: headers);
-  print(resp.statusCode);
-  print(resp.body);
+  // var resp = await http.get(Uri.parse(uri), headers: headers);
+
+  var resp = await  http.get(Uri.parse(uri),headers: headers);
+  if (resp.statusCode==200)
   // print('hello');
   // print(JsonDecoder().convert(resp.body));
   return JsonDecoder().convert(resp.body);

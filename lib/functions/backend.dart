@@ -4,9 +4,9 @@ import 'package:weatherapp/functions/functions.dart';
 import 'package:weatherapp/main.dart';
 import 'package:weatherapp/models/weathermodel.dart';
 import 'package:weatherapp/someconst.dart';
+import 'package:http/http.dart' as http;
 
 backend()async{ 
-  
   
     final _box =  await Hive.openBox(openBox);
   try {
@@ -16,14 +16,16 @@ backend()async{
     
     var response = await getData(APIKEY,await getCurrentLocation());
     // print(response);
-
+    // var response = await http.get(Uri.parse('http://localhost:5000'));
+    print(response.body);
     await _box.putAll(response);
   } else {
 
     // print(_box.get('date').runtimeType);
     // print(false);
     var response = await getData(APIKEY,await getCurrentLocation());
-
+//  var response = await http.get(Uri.parse('http://localhost:5000'));
+    // print(response.body);
     await _box.putAll(response);
   }
   } catch (e) {
@@ -32,7 +34,7 @@ backend()async{
     // print(e);
     }
   var response = await _box.toMap() ;
-  // print(response);
+  print(response);
   todaysWeather = Weather(
       date: time(response['location']['localtime'].toString()),
       day: findDayOfWeek(response['forecast']['forecastday'][0]['date']),
@@ -84,7 +86,9 @@ backend()async{
           .toString(),
       icon:
           'https:${response['forecast']['forecastday'][2]['day']['condition']['icon']}');
+          listofWeather=[todaysWeather,tomorrowsWeather,dayafterTomorrowsWeather];
           listofMiniWeatherModel=[];
+
   for (var i = 0;
       i < response['forecast']['forecastday'][0]['hour'].length;
       i++) {
@@ -157,5 +161,21 @@ preload()async{
           .toString(),
       icon:
           'https:${response['forecast']['forecastday'][2]['day']['condition']['icon']}');
-  }
+  
+   listofMiniWeatherModel=[];
+
+  for (var i = 0;
+      i < response['forecast']['forecastday'][0]['hour'].length;
+      i++) {
+    MiniWeatherModel miniWeatherModel1 = MiniWeatherModel(
+        time: timefun(response['forecast']['forecastday'][0]['hour'][i]['time']
+            .toString()),
+        icon:
+            'https:${response['forecast']['forecastday'][0]['hour'][i]['condition']['icon']}'
+                .toString(),
+        temp: response['forecast']['forecastday'][0]['hour'][i]['feelslike_c']
+            .toString());
+
+    listofMiniWeatherModel.add(miniWeatherModel1);
+  }}
 }

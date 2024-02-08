@@ -15,7 +15,6 @@ void main() async {
   await Hive.initFlutter();
   final _box = await Hive.openBox(openBox);
   preload();
-  backend();
   runApp(const MyApp());
 }
 
@@ -24,11 +23,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      
-       providers: [BlocProvider(create: (_)=>ListOFWeatherBloc()
-       ),BlocProvider(create: (_)=>listofMiniWeatherBloc()
-    )],
+    return BlocProvider(create: (_)=>WeatherBloc()
+       ,
        child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -36,7 +32,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: HomePage(),
-      ),
+       )
     );
   }
 }
