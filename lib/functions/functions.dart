@@ -19,11 +19,13 @@ String time(String time) {
 
 getData(String key, String location) async {
   String uri =
-'http://api.weatherapi.com/v1/forecast.json?key=${APIKEY}q=$location&days=7&aqi=no&alerts=no';
-  Map<String, String> headers = {'Content-Type': 'application/json'};
+'http://api.weatherapi.com/v1/forecast.json?key=$key&q=$location&days=7&aqi=no&alerts=no' ;
+ Map<String, String> headers = {'Content-Type': 'application/json'};
   // var resp = await http.get(Uri.parse(uri), headers: headers);
 
   var resp = await  http.get(Uri.parse(uri),headers: headers);
+  print(resp.body);
+  print('object');
   if (resp.statusCode==200)
   // print('hello');
   // print(JsonDecoder().convert(resp.body));

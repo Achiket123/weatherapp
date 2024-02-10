@@ -8,7 +8,7 @@ class RequestingData extends WeatherEvent{
   RequestingData();
   requestAndUpdate()async{
     print('requesting');
-    backend();
+    await backend();
     print('successfully fetched data');
   }
 }

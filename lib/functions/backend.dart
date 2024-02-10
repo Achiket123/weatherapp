@@ -28,11 +28,7 @@ backend()async{
     // print(response.body);
     await _box.putAll(response);
   }
-  } catch (e) {
-    
-    
-    // print(e);
-    }
+  
   var response = await _box.toMap() ;
   print(response);
   todaysWeather = Weather(
@@ -102,11 +98,17 @@ backend()async{
             .toString());
 
     listofMiniWeatherModel.add(miniWeatherModel1);
-  }
+  }} catch (e) {
+    
+    
+    // print(e);
+    }
 }
 
 
 preload()async{
+  
+  try{
   final _box =await Hive.openBox(openBox);
   if(_box.isNotEmpty){
     var response = await _box.toMap() ;
@@ -177,5 +179,7 @@ preload()async{
             .toString());
 
     listofMiniWeatherModel.add(miniWeatherModel1);
-  }}
+  }}}catch(e){
+    throw e;
+  }
 }

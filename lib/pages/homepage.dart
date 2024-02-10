@@ -25,6 +25,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     putDate();
 
+context.read<WeatherBloc>().add(RequestingData());
     return Scaffold(
       body: LiquidPullToRefresh(
         animSpeedFactor: 3,
@@ -45,11 +46,14 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 2.0),
                     child: Column(
                       children: [
-                        Center(
-                            child: Text(
-                          todaysWeather.city,
-                          style: const TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.w700),
+                        Center(child: BlocBuilder<WeatherBloc, List<Weather>>(
+                          builder: (context, state) {
+                            return Text(
+                              todaysWeather.city,
+                              style: const TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.w700),
+                            );
+                          },
                         )),
                         Center(
                             child: DigitalClock(
