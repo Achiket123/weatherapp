@@ -12,24 +12,10 @@ backend()async{
   try {
     
   
-  if (_box.isEmpty) {
-    
-    var response = await getData(APIKEY,await getCurrentLocation());
-    // print(response);
-    // var response = await http.get(Uri.parse('http://localhost:5000'));
-    print(response.body);
-    await _box.putAll(response);
-  } else {
-
-    // print(_box.get('date').runtimeType);
-    // print(false);
-    var response = await getData(APIKEY,await getCurrentLocation());
-//  var response = await http.get(Uri.parse('http://localhost:5000'));
-    // print(response.body);
-    await _box.putAll(response);
-  }
   
-  var response = await _box.toMap() ;
+  var response = await getData(APIKEY);
+  _box.putAll(response);
+  print('hhhhhhhhhhhhh');
   print(response);
   todaysWeather = Weather(
       date: time(response['location']['localtime'].toString()),
@@ -101,7 +87,7 @@ backend()async{
   }} catch (e) {
     
     
-    // print(e);
+    print(e);
     }
 }
 
@@ -179,7 +165,6 @@ preload()async{
             .toString());
 
     listofMiniWeatherModel.add(miniWeatherModel1);
-  }}}catch(e){
-    throw e;
+  }}}catch(e){print(e);
   }
 }

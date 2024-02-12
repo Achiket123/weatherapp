@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:weatherapp/main.dart';
+import 'package:weatherapp/someconst.dart';
 
 String time(String time) {
   var str = '';
@@ -17,19 +18,30 @@ String time(String time) {
   return str;
 }
 
-getData(String key, String location) async {
-  String uri =
-'http://api.weatherapi.com/v1/forecast.json?key=$key&q=$location&days=7&aqi=no&alerts=no' ;
- Map<String, String> headers = {'Content-Type': 'application/json'};
-  // var resp = await http.get(Uri.parse(uri), headers: headers);
+Future<dynamic> getData(String key) async {
+  await getCurrentLocation();
+  print(locationData);
 
-  var resp = await  http.get(Uri.parse(uri),headers: headers);
+  for(var i in locationData){
+    var city =  i['Name'];
+    print(city);
+  String uri =
+      'http://api.weatherapi.com/v1/forecast.json?key=$key&q=$city&days=7&aqi=no&alerts=no';
+  Map<String, String> headers = {'Content-Type': 'application/json'};
+  var resp = await http.get(Uri.parse(uri), headers: headers);
   print(resp.body);
   print('object');
-  if (resp.statusCode==200)
-  // print('hello');
-  // print(JsonDecoder().convert(resp.body));
-  return JsonDecoder().convert(resp.body);
+  var data = JsonDecoder().convert(resp.body);
+  if (!data.containsKey('error')) {
+    return data;
+  }
+  }
+  
+  // var resp = await http.get(Uri.parse(uri), headers: headers);
+
+  //rint((resp.body));
+  
+
 }
 
 String timefun(String time) {
@@ -59,37 +71,51 @@ String findDayOfWeek(String date) {
   return dayOfWeek;
 }
 
-Future<String> getCurrentLocation() async {
-  try {
-    if (Geolocator.checkPermission() == LocationPermission.denied) {
-      await Geolocator.requestPermission();
+ getCurrentLocation({index = 0}) async {
+  if (locationData.isEmpty) {
+    try {
+      if (Geolocator.checkPermission() == LocationPermission.denied) {
+        await Geolocator.requestPermission();
+      }
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+      var pin = '231217';
+      for (var i in placemarks) {
+        if (i.postalCode!.isNotEmpty) {
+          print(i.postalCode);
+          pin = i.postalCode.toString();
+        }
+      }
+      var data = await http
+          .get(Uri.parse('https://api.postalpincode.in/pincode/$pin'));
+
+      if (data.statusCode == 200) {
+        var data_ = jsonDecode(data.body);
+        print(data_);
+        locationData = data_[0]['PostOffice'];
+      }
+
+     
+    } catch (e) {
+      print(e);
+     
     }
-    Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
-
-
-    List<Placemark> placemarks = await placemarkFromCoordinates(
-      position.latitude,
-      position.longitude,
-    );
-
-    // Extract the city from the placemark
-    String city = placemarks.first.locality.toString();
-    print(city);
-    return city;
-  } catch (e) {
-    return 'Patna';
-  }
+  } 
 }
 
-permission()async{
-   var status = await Permission.location.request();
-    if (status == PermissionStatus.granted) {
-      print("Location permission granted!");
-    } else if (status == PermissionStatus.denied) {
-      permission();
-    } else {
-      permission();
-    }
+permission() async {
+  var status = await Permission.location.request();
+  if (status == PermissionStatus.granted) {
+    print("Location permission granted!");
+  } else if (status == PermissionStatus.denied) {
+    permission();
+  } else {
+    permission();
+  }
 }

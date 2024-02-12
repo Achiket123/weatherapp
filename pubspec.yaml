@@ -48,6 +48,7 @@ dependencies:
   geolocator: 
   geocoding: ^2.1.0
   liquid_pull_to_refresh: ^3.0.1
+  geocoder_buddy: ^1.0.1
 
 dev_dependencies:
   flutter_test:

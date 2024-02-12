@@ -45,7 +45,8 @@ List<MiniWeatherModel> listofMiniWeatherModel = [
   miniWeatherModel,
 ];
 
-var openBox = '17';
+var openBox = 'weather8';
+List locationData = [];
 
 List<Weather> listofWeather = [
   todaysWeather,
